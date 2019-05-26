@@ -20,13 +20,7 @@ import {
   DropdownItem } from 'reactstrap';
 
 
-
-
-
-
-
-
-
+  import  NavAdmin from './NavAdmin';
 export default  class StudentApplications extends React.Component{
   constructor(props) {
     super(props);
@@ -54,33 +48,40 @@ export default  class StudentApplications extends React.Component{
     return <Redirect to='/'  /> 
   }
     return (
-    
-  <table style={{ 'border-spacing': '0','width':"100%"}}>
-  <thead >
-    <tr style={{border: '1px solid black'}}>
-      <th  style={{border: '1px solid black'}}>Название проекта</th>
-      <th style={{border: '1px solid black'}}>ФИО студента</th>
-      <th style={{border: '1px solid black'}}>роль</th>
-      <th style={{border: '1px solid black'}}>статус</th>
-    </tr>
-  </thead>
-  <tbody >
-  {
-    this.state.items.map(item => (
-      <tr key={item.id}  style={{margin:'0px',padding:'0px'}}>
-      <td  style={{border: '1px solid black',margin:'0px',padding:'0px',  float: 'none',display: 'flex', justifyContent: 'center'}}>
-        <Link to={'/checkstudentappl/'+`${item.idStudent_application}`}  style={{ textDecoration: 'none' }}>{item.project_name}</Link>
-      </td>
-       <td style={{border: '1px solid black',margin:'0px',padding:'0px',align:"center"}}>{item.middle_name}</td>
-       <td style={{border: '1px solid black',margin:'0px',padding:'0px',align:"center"}}>{item.role}</td>
-       <td style={{border: '1px solid black',margin:'0px',padding:'0px',align:"center"}}>{item.status_of_app}</td>
-
-       </tr>
-    ))
-  }
-   </tbody>
-</table>
-
+      <div>
+      <NavAdmin />
+      <Jumbotron fluid>
+      <Container fluid>
+      <p className="lead">Заявки студентов</p>
+      </Container>
+      </Jumbotron>
+      <div style={{'margin':'20px'}}>
+     <Table bordered responsive hover>
+        <thead>
+          <tr style={{"textAlign":'center'}}>
+            <th >Название проекта</th>
+            <th >ФИО студента</th>
+            <th>Роль</th>
+            <th>Статус</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            this.state.items.map((item,index) => (
+              <tr key={index} style={{"textAlign":'center'}} >
+              <td  >
+                <Link to={'/checkstudentappl/'+`${item.idStudent_application}`}  style={{ textDecoration: 'none' ,'color':'black'}}>{item.project_name}</Link>
+              </td>
+               <td  >{`${item.middle_name}`+' '+`${ item.name}`}</td>
+               <td >{item.role}</td>
+               <td  >{item.status_of_app}</td>
+               </tr>
+            ))
+          }
+        </tbody>
+      </Table>
+      </div>
+      </div>
   )
 }
 }

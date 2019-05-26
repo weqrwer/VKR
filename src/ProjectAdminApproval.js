@@ -24,40 +24,66 @@ export default class ProjectAdminApproval extends React.Component {
       this.handleClickk=this.handleClickk.bind(this)
     }
     handleClick() {
-      console.log(this.state)
-      var urll='http://localhost:8000/api/professorprofiles/'+`${JSON.parse(localStorage.getItem("id"))}`+'/adminapproval/'+`${this.state.items.map(item=> item.idProjects)}`;
+      var urll1='http://localhost:8000/api/professorprofile/'+`${JSON.parse(localStorage.getItem("id"))}`+'/supervisorapproval/'+`${this.state.items.map(item=> item.idProjects)}`;
+      var urll2='http://localhost:8000/api/professorprofile/'+`${JSON.parse(localStorage.getItem("id"))}`+'/adminapproval/'+`${this.state.items.map(item=> item.idProjects)}`;
       var data ='согласован'
-      axios.get(urll,{
-    withCredentials: true}).then(response => { 
+      if(JSON.parse(localStorage.getItem("type"))=="supervisor"){
+      axios.get(urll1,{
+     withCredentials: true}).then(response => { 
       if(response.status===200){
         console.log(response)
         console.log("UPDATE OKKK")
         alert("Статус проекта изменен на положительный")
-       // this.props.history.push('/adminapproval');
-      }
-    })
+       this.props.history.push('/adminapproval')}})
     .catch(error => {
-      console.log(error.response)
-  })
+      console.log(error.response)})
+    }
+    if(JSON.parse(localStorage.getItem("type"))=="admin"){
+      axios.get(urll2,{
+     withCredentials: true}).then(response => { 
+      if(response.status===200){
+        console.log(response)
+        console.log("UPDATE OKKK")
+        alert("Статус проекта изменен на положительный")
+       this.props.history.push('/adminapproval')}})
+    .catch(error => {
+      console.log(error.response)})
+    }
+
     }  
       
   
     handleClickk() {
-      console.log(this.state)
-      var urll='http://localhost:8000/api/professorprofiles/'+`${JSON.parse(localStorage.getItem("id"))}`+'/admindisapproval/'+`${this.state.items.map(item=> item.idProjects)}`;
+      var urll1='http://localhost:8000/api/professorprofile/'+`${JSON.parse(localStorage.getItem("id"))}`+'/supervisordisapproval/'+`${this.state.items.map(item=> item.idProjects)}`;
+      var urll2='http://localhost:8000/api/professorprofile/'+`${JSON.parse(localStorage.getItem("id"))}`+'/admindisapproval/'+`${this.state.items.map(item=> item.idProjects)}`;
       var data ='отказано администратором'
-      axios.get(urll,{
+      if(JSON.parse(localStorage.getItem("type"))=="supervisor"){
+      axios.get(urll1,{
     withCredentials: true}).then(response => { 
       if(response.status===200){
         console.log(response)
         console.log("UPDATE OKKK!!")
         alert("Статус проекта изменен на отрицательный")
-       //] this.props.history.push('/adminapproval');
+        this.props.history.push('/adminapproval');
       }
     })
     .catch(error => {
       console.log(error.response)
-  })
+  })}
+  if(JSON.parse(localStorage.getItem("type"))=="admin"){
+    axios.get(urll2,{
+      withCredentials: true}).then(response => { 
+        if(response.status===200){
+          console.log(response)
+          console.log("UPDATE OKKK!!")
+          alert("Статус проекта изменен на отрицательный")
+          this.props.history.push('/adminapproval');
+        }
+      })
+      .catch(error => {
+        console.log(error.response)
+    })
+  }
     } 
   
   

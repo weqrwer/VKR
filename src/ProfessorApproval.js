@@ -8,12 +8,7 @@ import {  CardText,
   CardTitle, CardSubtitle} from 'reactstrap';
   import { Jumbotron, Container } from 'reactstrap';
   import { Table } from 'reactstrap';
-
-
-  
-
-
-
+import NavProf from "./NavProf";
 export default class ProfessorApproval extends React.Component{
     constructor(props) {
       super(props);
@@ -24,8 +19,8 @@ export default class ProfessorApproval extends React.Component{
     this.handleClick=this.handleClick.bind(this);
     this.handleClickk=this.handleClickk.bind(this)}
     componentDidMount() {
-      var url='http://localhost:8000/api/professorprofile/'+`${JSON.parse(localStorage.getItem("id"))}`+'/professorappoval/'+`${this.props.match.params.idapp}`
-   axios.get(url,{
+    var url='http://localhost:8000/api/professorprofile/'+`${JSON.parse(localStorage.getItem("id"))}`+'/professorappoval/'+`${this.props.match.params.idapp}`
+    axios.get(url,{
     withCredentials: true}).then(response => { 
       if(response.status===200){
         console.log(response)
@@ -36,7 +31,6 @@ export default class ProfessorApproval extends React.Component{
       console.log(error.response)
   });
     }
-   
     handleClick() {
       console.log(this.state)
       var urll='http://localhost:8000/api/professorprofile/'+`${JSON.parse(localStorage.getItem("id"))}`+'/professorapproval/'+`${this.props.match.params.idapp}`+'/'+`${this.state.itemss.map(item=>item.Student_idStudent)}`+'/'+`${this.state.itemss.map(item=>item.idRoles_of_project)}`;
@@ -47,6 +41,7 @@ export default class ProfessorApproval extends React.Component{
         console.log(response)
         console.log("UPDATE OKKKeyyy")
         alert("Статус заявки студента изменен на положительный")
+        this.props.history.push('/professorsapps')
       }
     })
     .catch(error => {
@@ -58,19 +53,19 @@ export default class ProfessorApproval extends React.Component{
       var urll='http://localhost:8000/api/professorprofile/'+`${JSON.parse(localStorage.getItem("id"))}`+'/professordisapproval/'+`${this.props.match.params.idapp}`+'/'+`${this.state.itemss.map(item=>item.Student_idStudent)}`+'/'+`${this.state.itemss.map(item=>item.idRoles_of_project)}`;
       var data ='отказано'
       axios.post(urll,data,{
-    withCredentials: true}).then(response => { 
+      withCredentials: true}).then(response => { 
       if(response.status===200){
         console.log(response)
         console.log("UPDATE OKKK!!")
         alert("Статус заявки студента изменен на отрицательный")
+        this.props.history.push('/professorsapps')
       }
     })
     .catch(error => {
       console.log(error.response)
   })
     } 
-  
-  
+
     func(t,tt){
       if(t=='на согласовании' &&  tt=='свободно'&&JSON.parse(localStorage.getItem("type"))=='professor'){
         return (<div><Button style={{'borderRadius': '5px',"margin":'1px'}} color="success"  onClick={() => {this.handleClick()}}> Согласовать</Button>
@@ -79,28 +74,24 @@ export default class ProfessorApproval extends React.Component{
     }
   
   render(){
-    
     if(localStorage.length==0){
       return <Redirect to='/'  /> 
     }
-  console.log(this.state.itemss)
   return(
-  
     <div >
+      <NavProf />
     <Jumbotron fluid>
-   <Container fluid>
+    <Container fluid>
      <p className="lead">Заявка</p>
-   </Container>
-   </Jumbotron>
- <Card >
-<CardBody>
-<CardTitle> Заявка студента</CardTitle>
-<CardSubtitle className="mb-2 text-muted"> Основная информация</CardSubtitle>
-<CardText >
-  
+    </Container>
+    </Jumbotron>
+    <Card >
+    <CardBody>
+    <CardTitle> Заявка студента</CardTitle>
+    <CardSubtitle className="mb-2 text-muted"> Основная информация</CardSubtitle>
+    <CardText >
    {
    this.state.itemss.map(item => (
-     
     <div>
     <div>ФИО студента: {item.middle_name}</div>
     <div>Комментарий: {item.comment}</div>
@@ -112,15 +103,12 @@ export default class ProfessorApproval extends React.Component{
     <div>Статус: {item.status_of_app}</div>
     <br/>
     {this.func(item.status_of_app,item.status_of_role)}
-    
     </div>
    ))}
-
 </CardText>
 </CardBody>
 </Card>
 </div>
-  
   
   )
   }

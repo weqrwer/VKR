@@ -23,39 +23,57 @@ export default class AdminApproval extends React.Component{
     constructor(props) {
       super(props);
       this.state = 
-      {information:[]};
+      {information:[]}
     }
-  
     componentDidMount() {
-      var url='http://localhost:8000/api/professorprofiles/'+`${JSON.parse(localStorage.getItem("id"))}`+'/adminapproval';
-    
+      var url='http://localhost:8000/api/professorprofile/'+`${JSON.parse(localStorage.getItem("id"))}`+'/adminapproval'
+      var url2='http://localhost:8000/api/professorprofile/'+`${JSON.parse(localStorage.getItem("id"))}`+'/supervisorapproval'
+      if(JSON.parse(localStorage.getItem("type"))=="admin"){
       axios.get(url,{
        withCredentials: true}).then(response => { 
          if(response.status===200){
            console.log(response)
            this.setState({information:response.data})
-    
-         }
-       })
+         }})
        .catch(error => {
-         console.log(error.response)
-     })
+         console.log(error.response)}) }
+        
+         if(JSON.parse(localStorage.getItem("type"))=="supervisor"){
+          axios.get(url2,{
+           withCredentials: true}).then(response => { 
+             if(response.status===200){
+               console.log(response)
+               this.setState({information:response.data})
+             }})
+           .catch(error => {
+             console.log(error.response)}) }
        }
+
       
        render(){
-         
-  if(localStorage.length==0){
-    return <Redirect to='/'  /> 
-  }
+     if(localStorage.length==0){
+     return <Redirect to='/'  /> 
+     }
+     if(this.state.information.length==0){
+      return ( <div>
+        <Jumbotron fluid>
+      <Container fluid>
+      <p className="lead">Проекты на согласование</p>
+      </Container>
+      </Jumbotron>
+      <div style={{'textAlign':'center'}}> НЕТ ДОСТУПНЫХ ПРОЕКТОВ</div>
+      </div>
+      )
+    }
          return( 
           <div>
             <NavAdmin />
-          <Jumbotron fluid>
-              <Container fluid>
-                <p className="lead">Каталог проектов</p>
-              </Container>
-              </Jumbotron>
-              <div style={{'margin':'20px'}}>
+            <Jumbotron fluid>
+            <Container fluid>
+            <p className="lead">Проекты на согласование</p>
+            </Container>
+            </Jumbotron>
+            <div style={{'margin':'20px'}}>
       <Table bordered responsive hover>
               <thead>
                 <tr style={{"textAlign":'center'}}>
@@ -66,7 +84,6 @@ export default class AdminApproval extends React.Component{
                 </tr>
               </thead>
               <tbody>
-                
                 {
                   this.state.information.map((item,index) => (
                     <tr key={index} style={{"textAlign":'center'}} >
@@ -76,18 +93,14 @@ export default class AdminApproval extends React.Component{
                      <td  >{`${item.middle_name}`+`${ item.name}`}</td>
                      <td >{item.begdate}</td>
                      <td  >{item.enddate}</td>
-              
                      </tr>
                   ))
                 }
               </tbody>
             </Table>
-          </div>
-        </div>
-
-
+            </div>
+            </div>
            )
        }
-  
   }
   

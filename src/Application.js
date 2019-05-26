@@ -49,23 +49,7 @@ export default class Application extends React.Component {
         })
         
     }
-  /*
-    onSuccess(){
-      if(this.state.subb==0){
-        return (<input  type="submit" value="Submit" />)
-      }
-      else{
-        return (<div>Success</div>)
-      }
-     
-    }
-    func(){
-      var temp=this.state.subb+1;
-      this.setState({subb:temp})
-      if(this.state.subb>0){
-      document.getElementById("id_here").style.visibility = "hidden"}
-    }
-  */
+ 
     render(){
      
       if(localStorage.length==0){
@@ -75,9 +59,6 @@ export default class Application extends React.Component {
       console.log(this.props)
       console.log('aaaaa rerender')
     return (
-
-
-
 
       <div style={{'text-align':'left'}}>
       <NavStudent />
@@ -89,7 +70,6 @@ export default class Application extends React.Component {
 <Card >
   <CardBody>
     <CardTitle> Заполните форму </CardTitle>
-  
     <CardText>
 <Form  onSubmit={this.handleSubmit}>
 <Row form>
@@ -131,25 +111,3 @@ export default class Application extends React.Component {
   
   }
 
-  /*
-        <form  onSubmit={this.handleSubmit}>
-          <div  style={{ color: 'green', 'font-family':'Arial, Helvetica, sans-serif'}} >
-          Контактная информация </div>
-            <input style={{'border-radius': '2px','text-align': 'center'}} type="text" name="student_contact_inf" value={this.state.student_contact_inf} onChange={this.handleChange} />
-        
-          <br />
-          <div style={{ color: 'green', 'font-family':'Arial, Helvetica, sans-serif'}}  >
-          Приоритет </div>
-            <input  style={{'border-radius': '2px','text-align': 'center'}}type="text" name="priority" value={this.state.priority} onChange={this.handleChange} />
-   
-          <br />
-          <div style={{ color: 'green', 'font-family':'Arial, Helvetica, sans-serif'}} >
-          Короткий комментарий</div>
-            <input  style={{'border-radius': '2px','text-align': 'center'}}type="text" name="comment" value={this.state.comment} onChange={this.handleChange} />
-         
-            <br />
-            <div  ><input  style={{'font-family':'Arial, Helvetica, sans-serif',color: 'green'
-    }}id="id_here" type="submit" value="Отправить" />
-            </div>
-            
-          </form>*/

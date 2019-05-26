@@ -33,11 +33,9 @@ export default class Profile extends Component{
       name:"",
       type:"",
       info:[]
-  }
-  
+  } 
 }
    componentDidMount(){
-
     var link='http://localhost:8000/api/studentprofile/'+`${JSON.parse(localStorage.getItem("id"))}`;
     var link2='http://localhost:8000/api/professorprofile/'+`${JSON.parse(localStorage.getItem("id"))}`;
     if(JSON.parse(localStorage.getItem("type"))=="student"){
@@ -62,7 +60,6 @@ export default class Profile extends Component{
           console.log(error.response)
       })
     }
-    
     this.setState({ID:JSON.parse(localStorage.getItem("id"))})
     this.setState({isauth:JSON.parse(localStorage.getItem("isAuth"))})
     this.setState({name:JSON.parse(localStorage.getItem("name"))})
@@ -74,95 +71,82 @@ export default class Profile extends Component{
         return <Redirect to='/'  /> 
       }
 
-        if(JSON.parse(localStorage.getItem("type"))=="admin"){
+        if(JSON.parse(localStorage.getItem("type"))=="admin"||JSON.parse(localStorage.getItem("type"))=="supervisor"){
         return(
-
           <div>
           <NavAdmin />
           <Jumbotron fluid>
-        <Container fluid>
+          <Container fluid>
           <p className="lead"> </p>
-        </Container>
-        </Jumbotron>
+          </Container>
+          </Jumbotron>
           <div>
           <Card >
-    <CardBody>
-      <CardTitle> Профиль </CardTitle>
-      <CardSubtitle className="mb-2 text-muted"> Информация о преподавателе</CardSubtitle>
-      <CardText >
-      {this.state.info.map(item=>(<div >
-             
+          <CardBody>
+          <CardTitle> Профиль </CardTitle>
+          <CardSubtitle className="mb-2 text-muted"> Информация о преподавателе</CardSubtitle>
+          <CardText >
+            {this.state.info.map(item=>(<div >
             <div style={{'font-family':'Arial, Helvetica, sans-serif', 'display': 'inline-block'}}> Департамент: {item.department}   </div>
             <div  style={{'font-family':'Arial, Helvetica, sans-serif' }}> Должность: {item.job}   </div>
             <div  style={{'font-family':'Arial, Helvetica, sans-serif'}}> Имя преподавателя: {item.name} </div>
             <div style={{'font-family':'Arial, Helvetica, sans-serif'}}> Фамилия преподавателя: {item.middle_name} </div>
             <div  style={{'font-family':'Arial, Helvetica, sans-serif'}}> Отчество преподавателя: {item.last_name} </div>
            </div>))}
-      </CardText>
-    </CardBody>
-  </Card>
-  
-  
-            </div>
-        </div>
-
-
+          </CardText>
+          </CardBody>
+          </Card>
+          </div>
+         </div>
         )
       }
         if (JSON.parse(localStorage.getItem("type"))=="professor"){
-           
         return(
           <div>
         <NavProf />
         <Jumbotron fluid>
         <Container fluid>
-          <p className="lead"> </p>
+        <p className="lead"> </p>
         </Container>
         </Jumbotron>
         <div>
         <Card >
-  <CardBody>
-    <CardTitle> Профиль </CardTitle>
-    <CardSubtitle className="mb-2 text-muted"> Информация о преподавателе</CardSubtitle>
-    <CardText >
-    {this.state.info.map(item=>(<div >
-           
+        <CardBody>
+        <CardTitle> Профиль </CardTitle>
+        <CardSubtitle className="mb-2 text-muted"> Информация о преподавателе</CardSubtitle>
+        <CardText >
+        {this.state.info.map(item=>(<div >
           <div style={{'font-family':'Arial, Helvetica, sans-serif', 'display': 'inline-block'}}> Департамент: {item.department}   </div>
           <div  style={{'font-family':'Arial, Helvetica, sans-serif' }}> Должность: {item.job}   </div>
           <div  style={{'font-family':'Arial, Helvetica, sans-serif'}}> Имя преподавателя: {item.name} </div>
           <div style={{'font-family':'Arial, Helvetica, sans-serif'}}> Фамилия преподавателя: {item.middle_name} </div>
           <div  style={{'font-family':'Arial, Helvetica, sans-serif'}}> Отчество преподавателя: {item.last_name} </div>
          </div>))}
-    </CardText>
-  </CardBody>
-</Card>
-
-
-          </div>
+       </CardText>
+       </CardBody>
+       </Card>
+      </div>
       </div>
         )
       }
 
 
       if(JSON.parse(localStorage.getItem("type"))=="student"){
-        
-        
         return(
           <div>
-        <NavStudent />
-        <Jumbotron fluid>
-        <Container fluid>
+          <NavStudent />
+          <Jumbotron fluid>
+          <Container fluid>
           <p className="lead"> </p>
-        </Container>
-        </Jumbotron>
-        <div>
-        <Card >
-  <CardBody>
-    <CardTitle> Профиль </CardTitle>
-    <CardSubtitle className="mb-2 text-muted"> Информация о студенте</CardSubtitle>
-    <CardText >
-    {this.state.info.map(item=>(<div >
-           
+          </Container>
+          </Jumbotron>
+          <div>
+          <Card >
+          <CardBody>
+          <CardTitle> Профиль </CardTitle>
+          <CardSubtitle className="mb-2 text-muted"> Информация о студенте</CardSubtitle>
+          <CardText >
+          {this.state.info.map(item=>(<div > 
           <div  style={{'font-family':'Arial, Helvetica, sans-serif' , 'display': 'inline-block'}}> Факультет:  {item.faculty}   </div>
           <div style={{'font-family':'Arial, Helvetica, sans-serif'}}> Департамент: {item.department}   </div>
           <div  style={{'font-family':'Arial, Helvetica, sans-serif' }}> Курс: {item.year_of_study}   </div>
@@ -170,11 +154,9 @@ export default class Profile extends Component{
           <div style={{'font-family':'Arial, Helvetica, sans-serif'}}> Фамилия студента: {item.middle_name} </div>
           <div  style={{'font-family':'Arial, Helvetica, sans-serif'}}> Отчество студента: {item.last_name} </div>
          </div>))}
-    </CardText>
-  </CardBody>
-</Card>
-
-
+         </CardText>
+         </CardBody>
+         </Card>
           </div>
       </div>
         )

@@ -18,15 +18,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem } from 'reactstrap';
-
-
-
-
-
-
-
-
-
+  import  NavAdmin from './NavAdmin';
 export default  class Appl extends React.Component{
     constructor(props) {
       super(props);
@@ -53,24 +45,21 @@ export default  class Appl extends React.Component{
     if(localStorage.length==0){
       return <Redirect to='/'  /> 
     }
-  console.log(this.state.itemss)
   return(
-  
-    <div >
-    <Jumbotron fluid>
-   <Container fluid>
-     <p className="lead">Заявка</p>
-   </Container>
-   </Jumbotron>
+  <div >
+    <NavAdmin />
+  <Jumbotron fluid>
+  <Container fluid>
+  <p className="lead">Заявка</p>
+  </Container>
+  </Jumbotron>
   <Card >
   <CardBody>
   <CardTitle> Заявка студента</CardTitle>
   <CardSubtitle className="mb-2 text-muted"> Основная информация</CardSubtitle>
   <CardText >
-  
    {
    this.state.itemss.map(item => (
-     
     <div>
     <div>ФИО студента: {item.middle_name}</div>
     <div>Комментарий: {item.comment}</div>
@@ -83,12 +72,10 @@ export default  class Appl extends React.Component{
     <br/>
     </div>
    ))}
-  
   </CardText>
   </CardBody>
   </Card>
   </div>
-  
   
   )
   }

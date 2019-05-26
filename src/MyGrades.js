@@ -57,9 +57,10 @@ export default class MyGrades extends React.Component {
               <NavStudent />
              <Jumbotron fluid>
                 <Container fluid>
-                  <p className="lead">Мои проекты</p>
+                  <p className="lead">Мои оценки</p>
                 </Container>
                 </Jumbotron>
+                <div style={{'margin':'20px'}}> 
         <Table bordered responsive hover>
                 <thead>
                   <tr style={{"textAlign":'center'}}>
@@ -89,6 +90,7 @@ export default class MyGrades extends React.Component {
                   }
                 </tbody>
               </Table>
+              </div>
               </div>
         
       )

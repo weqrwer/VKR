@@ -42,6 +42,7 @@ export default class MyProjects extends React.Component
                   <p className="lead">Мои проекты</p>
                 </Container>
                 </Jumbotron>
+                <div style={{'margin':'20px'}}>
         <Table bordered responsive hover>
                 <thead>
                   <tr style={{"textAlign":'center'}}>
@@ -68,6 +69,7 @@ export default class MyProjects extends React.Component
                   }
                 </tbody>
               </Table>
+              </div>
               </div>
         
       )

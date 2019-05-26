@@ -27,13 +27,9 @@ export default class ProjectPassport extends Component{
         intensity:0,
         main_tasks:"",
         goals:"",
-
       stagelist:[],
-      
       roleslist:[],
       tooltipOpen: false
-      
-  
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick=this.handleClick.bind(this)
@@ -54,7 +50,7 @@ export default class ProjectPassport extends Component{
   }
     //inputs
     handleChange(event) {  
-      this.setState({ [event.target.name]: event.target.value });
+      this.setState({ [event.target.name]: event.target.value })
     }
 
     handleChangee=(index)=>(event)=>
@@ -115,7 +111,7 @@ export default class ProjectPassport extends Component{
     handleSubmit(event) {
       event.preventDefault();
       console.log(this.props.someData)
-      var url='http://localhost:8000/api/professorprofile/'+`${JSON.parse(localStorage.getItem("id"))}` +'/projectpassport';
+      var url='http://localhost:8000/api/professorprofile/'+`${JSON.parse(localStorage.getItem("id"))}` +'/projectpassport'
       const project = {
         project_name: this.state.project_name,
         type_of_project:this.state.type_of_project,
@@ -130,10 +126,7 @@ export default class ProjectPassport extends Component{
         goals: this.state.goals,
         stagelist:this.state.stagelist,
         roleslist:this.state.roleslist
-      };
-      console.log("ASSSSSSSSS")
-      console.log(project)
-      
+      }
       axios.post(url,project,{
         withCredentials: true}).then(response => { 
           if(response.status===200){
@@ -141,11 +134,10 @@ export default class ProjectPassport extends Component{
             console.log("insert ok")
             alert("Паспорт проекта успешно отправлен!")
             //console.log(this.state.change)
+            this.props.history.push('/profile')
           }
         })
-  
-  
-  
+
     }
 
     handleClick(){
@@ -155,18 +147,16 @@ export default class ProjectPassport extends Component{
     }
    
     handleClickk(){
-      var i;var l={};//[]
+      var i;var l={};
       for (i = 0; i < +this.state.stagelist.length; i++) { 
-       l['grade_'+`${i+1}`]=0;
+       l['grade_'+`${i+1}`]=0
        }
-       console.log("BBBBBBBB")
        console.log(l)
       var {roleslist}=this.state;
       var joined = roleslist.concat([{"role":'',"skills":'',"reccoms":'',"kurs":'', 'grades':[l]}]);
       this.setState({ roleslist: joined })
-     
-      var grades=this.state.roleslist.map(i=>i.grades);
-      var j= grades.concat(l  );
+      var grades=this.state.roleslist.map(i=>i.grades)
+      var j= grades.concat(l  )
       this.setState({ grades: j })
       //this.handleClickkk()
       
@@ -176,7 +166,6 @@ export default class ProjectPassport extends Component{
       if(this.state.stagelist.length==0){
         return 
           {this.state.stagelist.map((item,index)=> (<div >
-           
             Номер этапа
             <input type="text" name="number_of_stage" value={this.state.stagelist['number_of_stage']}  onChange={this.handleChangee(index)} >
             </input>
@@ -193,7 +182,6 @@ export default class ProjectPassport extends Component{
         <Card style={{"display":'flex','overflow':'auto', 'marginLeft':"30px",'marginBottom':'20px'}}>
         <CardBody>
           <CardText>
-                
                 {this.state.stagelist.map((item,index)=> (<div >
                   <Row form>
           <Col md={3}>
@@ -201,19 +189,13 @@ export default class ProjectPassport extends Component{
                   <Label>Номер этапа</Label>
                   <Input type="text" name="number_of_stage" value={this.state.stagelist['number_of_stage']}  onChange={this.handleChangee(index)} >
                   </Input></FormGroup>
-        </Col>
-        
-
-                  
+        </Col> 
           <Col md={3}>
         <FormGroup>
                   <Label>Начало этапа</Label>
                   <Input type="text" name="date_beggining" value={this.state.stagelist['date_beggining']}  onChange={this.handleChangee(index)} >
                   </Input></FormGroup>
-        </Col>
-        
-
-                 
+        </Col>  
           <Col md={3}>
         <FormGroup>
                   <Label>Конец этапа</Label>
@@ -221,9 +203,7 @@ export default class ProjectPassport extends Component{
                   </Input></FormGroup>
         </Col>
         </Row>
-                  
                   </div>))}
-                  
                   </CardText>
       </CardBody>
       </Card>
@@ -247,7 +227,6 @@ export default class ProjectPassport extends Component{
           Курс
           <input name="kurs" value={this.state.stagelist['kurs']} onChange={this.handleChangeee(index)} >
           </input>
-
           </div>))
 
 this.state.roleslist.map((itemm,indexx)=>itemm.grades.map( (elem,ind)=> Object.keys(elem).map(  (thing,indexs) => {
@@ -261,20 +240,16 @@ this.state.roleslist.map((itemm,indexx)=>itemm.grades.map( (elem,ind)=> Object.k
     return(<div>Оценка за {indexs+1} этап  {console.log(elem)} <input  type="text" name={"grade_"+`${indexs+1}`} 
     value={elem["grade_"+`${indexs+1}`]}  onChange={this.hCh(indexx)} >
   </input></div>)
-
   }
  })))
           
-        
-        
-        
+  
         }
       }
       else{ return (<div>
         <Card style={{"display":'flex','overflow':'auto','marginLeft':"30px",'marginBottom':'20px'}}>
         <CardBody>
           <CardText>
-                
                 {this.state.roleslist.map((item,index)=> (<div >
 
                   <Row form>
@@ -283,34 +258,26 @@ this.state.roleslist.map((itemm,indexx)=>itemm.grades.map( (elem,ind)=> Object.k
                   <Label>Роль проекта</Label>
                   <Input type="text" name="role" value={this.state.stagelist['role']} onChange={this.handleChangeee(index)} >
                   </Input></FormGroup>
-        </Col>
-        
-
-                  
+        </Col>    
           <Col md={3}>
         <FormGroup>
                   <Label>Навыки</Label>
                   <Input type="text" name="skills" value={this.state.stagelist['skills']} onChange={this.handleChangeee(index)}>
                   </Input></FormGroup>
-        </Col>
-        
-
-                 
+        </Col>   
           <Col md={3}>
         <FormGroup>
                   <Label>Факультет</Label>
                   <Input type="text"  name="reccoms" value={this.state.stagelist['reccoms']} onChange={this.handleChangeee(index)} >
                   </Input></FormGroup>
-        </Col>
-               
+        </Col>    
         <Col md={3}>
         <FormGroup>
                   <Label>Курс</Label>
                   <Input name="kurs" value={this.state.stagelist['kurs']} onChange={this.handleChangeee(index)} >
                   </Input></FormGroup>
         </Col>
-        </Row>
-                  
+        </Row>  
                   </div>))}
                   
                   </CardText>
@@ -330,20 +297,14 @@ this.state.roleslist.map((itemm,indexx)=>itemm.grades.map( (elem,ind)=> Object.k
           return(<div>Оценка за {indexs+1} этап  {console.log(elem)} <Input  type="text" name={"grade_"+`${indexs+1}`} 
           value={elem["grade_"+`${indexs+1}`]}  onChange={this.hCh(indexx)} >
         </Input></div>)
-
         }
        })))}
-       
        </CardText>
       </CardBody>
       </Card>
        </div>
       )}
     }
-
-
-
-
 
     render(){  
       
@@ -356,31 +317,29 @@ this.state.roleslist.map((itemm,indexx)=>itemm.grades.map( (elem,ind)=> Object.k
       console.log(this.state)
     return (
       <div >
-      <NavProf />
+        <NavProf />
         <Jumbotron fluid>
         <Container fluid>
           <p className="lead">Проект</p>
         </Container>
         </Jumbotron>
         <Card >
-  <CardBody>
-    <CardTitle> Заполните паспорт проекта</CardTitle>
+        <CardBody>
+        <CardTitle> Заполните паспорт проекта</CardTitle>
   
-    <CardText>
-     
+       <CardText>
         <Form onSubmit={this.handleSubmit}>
         <div style={{'display':'flex','flex-direction': 'row'}} >
-      <div style={{'display':'block'}}>
+        <div style={{'display':'block'}}>
         <Row  form>
-          <Col md={12}>
+         <Col md={12}>
         <FormGroup >
           <Label>
           Название проекта</Label>
             <Input type="text" name="project_name" value={this.state.project_name} onChange={this.handleChange} />
             </FormGroup>
         </Col>
-        </Row>
-          
+        </Row> 
         <Row form>
           <Col md={12}>
         <FormGroup>
@@ -390,7 +349,6 @@ this.state.roleslist.map((itemm,indexx)=>itemm.grades.map( (elem,ind)=> Object.k
             </FormGroup>
         </Col>
         </Row>
-  
             <Row form>
           <Col md={12}>
         <FormGroup>
@@ -472,27 +430,6 @@ this.state.roleslist.map((itemm,indexx)=>itemm.grades.map( (elem,ind)=> Object.k
             </FormGroup>
         </Col>
         </Row>
-          
-          
-          
-            {/*this.state.roleslist.map((itemm,indexx)=>itemm.grades.map( (elem,ind)=> Object.keys(elem).map(  (thing,indexs) => (<div>Оценка за {indexs+1} этап  {console.log(elem)} <input  type="text" name={"grade_"+`${indexs+1}`} 
-            value={elem["grade_"+`${indexs+1}`]}  onChange={this.hCh(indexx)} >
-          </input></div>))))*/}
-          
-           {/*this.state.roleslist.map((itemm,indexx)=>itemm.grades.map( (elem,ind)=> Object.keys(elem).map(  (thing,indexs) => {
-             if(indexs===0)
-             {
-               return (<div>Студент {indexx+1}:<div>Оценка за {indexs+1} этап  {console.log(elem)} <input  type="text" name={"grade_"+`${indexs+1}`} 
-               value={elem["grade_"+`${indexs+1}`]}  onChange={this.hCh(indexx)} >
-             </input></div></div>)
-             }
-             else{
-               return(<div>Оценка за {indexs+1} этап  {console.log(elem)} <input  type="text" name={"grade_"+`${indexs+1}`} 
-               value={elem["grade_"+`${indexs+1}`]}  onChange={this.hCh(indexx)} >
-             </input></div>)
-
-             }
-            })))*/}
        
           <Button style={{'borderRadius': '5px','margin':'5px'}} color="success" onClick={this.handleClick}> Добавить этап</Button>
           <Button id="AutoHideExample" style={{'borderRadius': '5px','margin':'5px'}} color="success" onClick={this.handleClickk}> Добавить роль</Button>
@@ -503,20 +440,14 @@ this.state.roleslist.map((itemm,indexx)=>itemm.grades.map( (elem,ind)=> Object.k
           <Button style={{'borderRadius': '5px','margin':'5px'}} color="success">Отправить заявку</Button>
           
          </div>
-         
-          
         <div style={{'display':'block'}}>
         {this.isNull()}
         {this.isNull2()}</div>
-
-
-
          </div>
         </Form>
-        
         </CardText>
-</CardBody>
-</Card>
+        </CardBody>
+        </Card>
         </div> 
         
       );
